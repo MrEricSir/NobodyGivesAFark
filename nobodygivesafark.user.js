@@ -7,6 +7,7 @@
 // @include     http://foobies.com/*
 // @include     http://*.foobies.com/*
 // @license     MIT
+// @run-at      document-start
 // @grant       none
 // ==/UserScript==
 
@@ -42,24 +43,37 @@ function hideByID(idName) {
         element.parentNode.removeChild( element );
 }
 
-hideByID('header');         // No need for a header
-hideByID('BF_WIDGET_1');       // "Featured partner" sites listed with main links
-hideByID('BF_WIDGET_2');
-hideByID('boxSwap');           // Featured sites
-hideByID('alsoOnFarkTable');   // Also on Fark
-hideByID('facebook');          // Social media
-hideByID('gplus');
-hideByID('twitter');
-hideByID('pinterest');
+// Run the JS prior to page display for faster results.
+window.addEventListener ('beforescriptexecute', remover, true);
+function remover() {
+    hideByID('header');         // No need for a header
+    hideByID('BF_WIDGET_1');       // "Featured partner" sites listed with main links
+    hideByID('BF_WIDGET_2');
+    hideByID('boxSwap');           // Featured sites
+    hideByID('alsoOnFarkTable');   // Also on Fark
+    hideByID('facebook');          // Social media
+    hideByID('gplus');
+    hideByID('twitter');
+    hideByID('pinterest');
 
-hideByClassName('shoprotator');         // Fark shop
-hideByClassName('BF_WIDGET');           // "Featured partner" sites (again, for safety)
-hideByClassName('alsoOnFark');          // Also on Fark header
-hideByClassName('shareLinkContainer');  // Social media
+    hideByClassName('shoprotator');         // Fark shop
+    hideByClassName('BF_WIDGET');           // "Featured partner" sites (again, for safety)
+    hideByClassName('alsoOnFark');          // Also on Fark header
+    hideByClassName('shareLinkContainer');  // Social media
+    hideByClassName('abbu');                // Inline Total Fark upsell, WTFark ads
 
-addGlobalStyle('#abPleaBar { visibility:hidden; }'); // Beg bar
+    addGlobalStyle('#abPleaBar { visibility:hidden; }'); // Beg bar
+    addGlobalStyle('#look_At_totalfark { display: none; }'); // TotalFark sidebar ad
 
-// Nuke Total Fark upsell and WTFark functions.
-ga = function(){};
+
+    // Nuke Google Analytics and Taboola Javascript
+    var scripts = document.getElementsByTagName('script');
+    for ( var i = 0; i < scripts.length; i++ ) {
+        if(scripts[i].getAttribute('src').indexOf('google-analytics') != -1 ||
+           scripts[i].getAttribute('src').indexOf('taboola') != -1) {
+          scripts[i].parentNode.removeChild(scripts[i]);
+       }
+    }
+}
 
 // That's it!  Any suggestions, e-mail me kthnxbye.
