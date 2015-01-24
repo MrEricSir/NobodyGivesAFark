@@ -59,5 +59,7 @@ hideByClassName('shareLinkContainer');  // Social media
 
 addGlobalStyle('#abPleaBar { visibility:hidden; }'); // Beg bar
 
+// Nuke Total Fark upsell and WTFark functions.
+ga = function(){};
 
 // That's it!  Any suggestions, e-mail me kthnxbye.
