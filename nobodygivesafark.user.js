@@ -62,6 +62,7 @@ function remover() {
     hideByClassName('shareLinkContainer');  // Social media
     hideByClassName('abbu');                // Inline Total Fark upsell, WTFark ads
     hideByClassName('top_right_container'); // Ad box in sidebar
+    hideByClassName('spau');                // E-generator
 
     addGlobalStyle('#abPleaBar { visibility:hidden; }'); // Beg bar
     addGlobalStyle('#look_At_totalfark { display: none; }'); // TotalFark sidebar ad
